@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Type-It-Out</title>
+  <link type="text/css" rel="stylesheet" href="/css/main.css">
+  <link type="text/css" rel="stylesheet" href="/css/blockParty.css">
+  <link type="text/css" rel="stylesheet" href="/css/UIstyling.css">
+  <link type="text/css" rel="stylesheet" href="/css/extra.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+
+<body>
+  <br>
+  <br>
+  <words
+    data-val="star,box,apple,phone,wheel,this,is,some,test,text,alternate,people,sound,noise,phonetic,lasting,second,great,master,code,treat,groan,frog,cow,note,dollar,swing,thought,desk,map,cold,hot,sweet,sour,power,hour,base,want,know,nation,write,after,few,like,show,system,face,problem,state,see,it,take,line,course,if,as,keep,work,who,time,on,get,give,year,increase,end,life,of,just,more,seem,look,mean,and,run,since,same,where,number,these,day,form,she,also,way,many,early,thing,large,person,into,while,you,call,first,good,but,last,any,general,well,in,that,then,again,small,even,both,head,too,consider,turn,child,there,own,late,old,before,should,leave,change,down,one,must,without,high,use,group,lead,never,govern,develop,part,think,which,such,feel,move,against,real,very,interest,when,ask,could,eye,not,school,help,can,program,stand,during,may,about,from,another,world,long,much,little,around,however,hold,tell,most,new,follow,those,public,place,possible,play,say,between,open,right,what,will,come,find,through,begin,home,might,under,hand,off,need,only,make,still,by,set,back,order,word,because,house,present,would,than,each,have,plan,point,they,fact,become,chaotic,forces,denial,vertical,vertigo,antique,placebo,canon,cathartic,drink,spin,spine"
+    style="display:none">
+  </words>
+  <div id="mainContainer">
+    <div class="ui">
+      <div class="header">
+        <div class="row one">
+          <div class="wordcount">
+            Word Combo:&nbsp;<div> <span class="val">0</span><span class="mult"></span>x</div>
+          </div>
+          <input class="username" type='text' placeholder="John Doe" value>
+        </div>
+        <div class="row two">
+          <div class="keycount">
+            Key Combo:&nbsp;
+            <div> <span class="val increment">0</span><span class="mult">x</span></div>
+          </div>
+          <div class="date">11/24/2022</div>
+        </div>
+        <div class="row three">
+          <div class="wpm">
+            <div> <span class="val increment">0</span><span class="mult">&nbsp;</span></div>
+            <span title="Words per Minute">WPM</span>
+          </div>
+          <div class="period burst increment">Animation Mode:&nbsp <span class="domAnim">Burst</span></div>
+        </div>
+        <h3 class="title" style="margin: 0 auto">Type-It-Out</h3>
+      </div>
+    </div>
+    <div id="textArr-ctn">
+      <div id="textArr">
+        <words data-val="<%= words[0].words %>" style="display:none">
+          <%= words[0].words %>
+        </words>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/helpers.js" onload></script>
+  <script src="/js/styleFunctions.js" onload></script>
+  <script src="/js/cursor.js" onload></script>
+  <script src="/js/main.js" onload></script>
+</body>
+
+</html>

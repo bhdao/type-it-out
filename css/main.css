@@ -1,0 +1,413 @@
+:root {
+  --error: red;
+  --yes: lightgreen;
+  --pendingGood: rgb(0, 183, 255);
+  --errWordButTheCorrectLetters: rgb(204, 204, 204);
+  --allRowHeight: 500px;
+  --spaceWidth: 7px;
+  --set-line-height: 30px;
+  --cursorHeight: 30px;
+}
+
+h3 {
+  text-align: center;
+}
+
+.yes {
+  color: var(--pendingGood);
+}
+
+.no {
+  color: var(--error);
+}
+
+.cleared .yes,
+.cleared.yes {
+  color: rgb(--yes);
+}
+
+.space .letter.yes {
+  color: rgba(0, 0, 0, 0);
+}
+
+.cleared .no,
+.cleared.no {
+  color: var(--error);
+}
+
+.word.cleared.no .letter.no {
+  box-shadow: 0 1px 0 var(--error);
+}
+
+#booty {
+  color: rgb(255, 122, 27);
+}
+
+body {
+  background-image: url(/images/grid-transparent.png);
+  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Gloria Hallelujah", cursive;
+  font-weight: bold;
+  font-size: 1.2rem;
+  position: relative;
+}
+
+.letter {
+  position: relative;
+}
+
+/* .cursor {
+  position: absolute;
+  height: auto;
+  width: 2px;
+  left: -10%;
+  background-color: blue;
+  color: RGBA(0, 0, 0, 0);
+  animation: fading 1.5s;
+  animation-iteration-count: infinite;
+  transition: 0.1s;
+} */
+
+.cursor {
+  position: absolute;
+  height: auto;
+  outline: 1px solid pink;
+  width: 0px;
+  height: var(--cursorHeight);
+  left: -10%;
+  top: 0;
+  /* background-color: blue; */
+  color: RGBA(0, 0, 0, 0);
+  animation: fading 1.5s;
+  animation-iteration-count: infinite;
+  transition: 0.1s;
+}
+
+.cursor.move {
+  animation: fading 1.5s, move 0.1s forwards;
+  animation-iteration-count: infinite, 1;
+}
+
+.cursor.unmove {
+  animation: fading 1.5s, unmove 0.1s forwards;
+  animation-iteration-count: infinite, 1;
+}
+
+.space.word {
+  position: relative;
+  width: var(--spaceWidth) px;
+  color: RGBA(0, 0, 0, 0);
+}
+
+span.word {
+  display: inline-flex;
+}
+
+.space .floatingErr {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding-left: 1px;
+  height: 205%;
+  border-left: 3px solid var(--error);
+  border-top: 3px solid var(--error);
+  font-weight: bold;
+  color: var(--error);
+  background: RGBA(256, 256, 256, 0.8);
+  z-index: 10000;
+}
+
+.word {
+  padding-right: var(--spaceWidth);
+}
+
+/* .word-pos[data-word] {
+  display: inline-flex;
+} */
+
+#help {
+  display: flex;
+  font-weight: bold;
+  width: 400px;
+  height: 100px;
+  background-color: rgb(114, 177, 250);
+  color: white;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  position: absolute;
+  top: 175px;
+  left: 200px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+}
+
+#sniperScope {
+  display: flex;
+  font-weight: bold;
+  width: 50px;
+  height: 50px;
+  left: -100%;
+  color: greenyellow;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  /* border-radius: 100%; */
+  /* border: 1px solid red; */
+  outline: 5px solid white;
+  backdrop-filter: invert(1);
+  z-index: 100;
+}
+
+#help:active {
+  background-color: rgb(246, 117, 103);
+  box-shadow: 0px 5px 5px rgb(212, 92, 78) inset;
+}
+
+#mainContainer {
+  max-width: 800px;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 40px;
+  /* outline: 5px solid rgb(120, 239, 255); */
+  border-radius: 15px;
+  min-height: 600px;
+}
+
+
+.header {
+  display: flex;
+  flex-direction: column;
+  text-align: end;
+  align-items: flex-end;
+}
+
+.title {
+  text-align: center;
+}
+
+.header > div {
+  display: flex;
+}
+
+.header .row {
+  width: 100%;
+}
+
+.header .row,
+.header .row > div {
+  justify-content: space-between;
+  display: flex;
+}
+
+/* #textArr {
+  max-width: 800px;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 25px;
+  background: white;
+  outline: 5px solid rgb(120, 239, 255);
+  border-radius: 15px;
+} */
+
+#textArr {
+  max-height: var(--allRowHeight);
+  overflow: hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  padding-top: calc((var(--allRowHeight) / 2.5));
+  margin-top: calc((var(--allRowHeight) / -2.5));
+  line-height: var(--set-line-height);
+}
+
+#textArr::-webkit-scrollbar {
+  display: none;
+}
+
+.word.cleared.yes {
+  animation: bump 0.1s;
+}
+
+/* For the letters that are correct but the word overall has a typo */
+.word.cleared.no > .yes {
+  color: var(--errWordButTheCorrectLetters);
+}
+
+.ui div {
+  display: flex;
+}
+
+.ui span {
+  display: inline-flex;
+}
+
+.ui div > div {
+  position: relative;
+  overflow: hidden;
+}
+
+.ui .val {
+  /* position: absolute; */
+}
+
+.val.increment {
+  animation: flickerUp 0.2s;
+  transition: linear;
+  /* animation-iteration-count: infinite; */
+}
+
+.val.increment2 {
+  animation: flickerUpper 0.2s;
+  transition: linear;
+  /* animation-iteration-count: infinite; */
+}
+
+#textArr-ctn.shift {
+  animation: shiftUp 0.2s forwards;
+}
+
+#killRow.killFade {
+  animation: killFade 0.2s forwards;
+}
+
+@keyframes bump {
+  0% {
+  }
+
+  25% {
+    transform: rotate(5deg);
+  }
+
+  50% {
+    transform: rotate(-5deg);
+  }
+
+  100% {
+  }
+}
+
+@keyframes fading {
+  0% {
+    opacity: 100%;
+  }
+
+  50% {
+    opacity: 0%;
+  }
+
+  100% {
+    opacity: 100%;
+  }
+}
+
+@keyframes flickerUp {
+  0% {
+    color: rgb(101, 255, 25);
+    transform: scale(1.5, 1.5);
+    font-weight: bold;
+  }
+
+  2% {
+    transform: translateY(-15%);
+    blur: 100%;
+    transform: scale(1, 1);
+    font-weight: default;
+  }
+
+  50% {
+    transform: translateY(40%);
+    color: black;
+  }
+
+  51% {
+    transform: translateY(-20%);
+    blur: 0px;
+  }
+
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+@keyframes flickerUpper {
+  0% {
+    color: rgb(101, 255, 25);
+    transform: scale(1.5, 1.5);
+    font-weight: bold;
+  }
+
+  2% {
+    transform: translateY(-15%);
+    blur: 100%;
+    transform: scale(1, 1);
+    font-weight: default;
+  }
+
+  50% {
+    transform: translateY(40%);
+    color: black;
+  }
+
+  51% {
+    transform: translateY(-20%);
+    blur: 0px;
+  }
+
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+@keyframes move {
+  0% {
+    left: -70%;
+  }
+
+  80% {
+    left: -20%;
+  }
+
+  100% {
+    left: -10%;
+  }
+}
+
+@keyframes unmove {
+  0% {
+    left: 70%;
+  }
+
+  80% {
+    left: 20%;
+  }
+
+  100% {
+    left: -10%;
+  }
+}
+
+@keyframes shiftUp {
+  0% {
+    overflow: hidden;
+    margin-top: 0px;
+    /* margin-bottom: 38.04px; */
+  }
+
+  100% {
+    overflow: hidden;
+    margin-top: -30px;
+    margin-bottom: 30px;
+  }
+}
+
+@keyframes killFade {
+  0% {
+    opacity: 100%;
+  }
+
+  100% {
+    opacity: 0%;
+  }
+}

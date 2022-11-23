@@ -1,0 +1,106 @@
+:root {
+  --textColor: RGBA(0, 0, 0, 1);
+  /* --textFilter: brightness(0) saturate(0); */
+  --textFilter: "";
+
+  --paperColor: RGBA(255, 255, 255, 0.4) url("/images/grid-solid.png");
+  /* --paperFilter: brightness(300%) saturate(0); */
+  --paperFilter: "";
+
+  --bgColor: url("/images/paperbg1.jpg");
+  --bgFilter: saturate(1);
+}
+
+.word {
+  /* z-index: 200; */
+  color: var(--textColor);
+  filter: var(--textFilter);
+}
+
+#mainContainer {
+  filter: var(--paperFilter);
+  background: var(--paperColor);
+  background-position: center;
+  /* background-size: cover; */
+  position: relative;
+}
+
+/* #mainContainer:before {
+  content: " ";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: RGBA(0, 255, 0, 1);
+}
+
+#mainContainer:before:active {
+  background-color: RGBA(0, 255, 0, 0);
+} */
+
+body {
+  background: var(--bgColor);
+  backdrop-filter: var(--bgFilter);
+  background-position: center;
+  background-size: cover;
+}
+
+#styling span,
+#styling span > * {
+  display: inline-flex;
+}
+
+#styling {
+}
+
+#styling span {
+  flex-direction: column;
+  width: auto;
+}
+
+.UI__ {
+  cursor: pointer;
+  user-select: none;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.UI__.els div {
+  padding: 0 5px;
+}
+
+.UI__.els div.selected {
+  outline: 4px solid gold;
+  border-radius: 5px;
+}
+
+.UI__.els div:active {
+  transform: translateY(2px);
+}
+
+.username {
+  border: none;
+  background: none;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  text-align: end;
+  padding: 0;
+  position: relative;
+}
+
+.username {
+    background-size: contain;
+    background-position-x: 80%;
+    background-repeat: no-repeat;
+}
+
+.date:active {
+  color: RGBA(0, 0, 0, 0) !important;
+  background-image: url('/images/crocodile-4.svg');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}

@@ -1,0 +1,47 @@
+
+
+.period {
+  color: white;
+  background: rgb(0, 92, 255);
+  background: -moz-linear-gradient(
+    0deg,
+    rgba(0, 92, 255, 1) 0%,
+    rgba(0, 207, 255, 1) 100%
+  );
+  background: -webkit-linear-gradient(
+    0deg,
+    rgba(0, 92, 255, 1) 0%,
+    rgba(0, 207, 255, 1) 100%
+  );
+  background: linear-gradient(
+    0deg,
+    rgba(0, 92, 255, 1) 0%,
+    rgba(0, 207, 255, 1) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#005cff",endColorstr="#00cfff",GradientType=1);
+  /* Thank you, cssgradient.io! */
+  padding: 4px 8px;
+  font-size: 0.8rem;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.period.flare {
+  background: rgb(255, 0, 0);
+  background: -moz-linear-gradient(
+    0deg,
+    rgba(255, 0, 0, 1) 0%,
+    rgba(255, 191, 0, 1) 100%
+  );
+  background: -webkit-linear-gradient(
+    0deg,
+    rgba(255, 0, 0, 1) 0%,
+    rgba(255, 191, 0, 1) 100%
+  );
+  background: linear-gradient(
+    0deg,
+    rgba(255, 0, 0, 1) 0%,
+    rgba(255, 191, 0, 1) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff0000",endColorstr="#ffbf00",GradientType=1);
+}
