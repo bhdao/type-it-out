@@ -44,6 +44,7 @@ body {
   backdrop-filter: var(--bgFilter);
   background-position: center;
   background-size: cover;
+  height: 95vh;
 }
 
 #styling span,
@@ -92,15 +93,137 @@ body {
 }
 
 .username {
-    background-size: contain;
-    background-position-x: 80%;
-    background-repeat: no-repeat;
+  background-size: contain;
+  background-position-x: 80%;
+  background-repeat: no-repeat;
 }
 
 .date:active {
   color: RGBA(0, 0, 0, 0) !important;
-  background-image: url('/images/crocodile-4.svg');
+  background-image: url("/images/crocodile-4.svg");
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+#modal {
+  font-family: "Arial", segoe;
+  max-width: 600px;
+  min-width: 300px;
+  bottom: 50%;
+  position: sticky;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  backdrop-filter: blur(5px);
+  background-color: RGBA(255, 255, 255, 0.6);
+  outline: 2px solid RGBA(0, 200, 255, 0.8);
+  padding: 15px;
+  border-radius: 15px;
+  margin: 0 auto;
+  font-size: 1rem;
+  border-radius: 5px;
+  opacity: 0;
+}
+
+#modal.triggered {
+  opacity: 0;
+  animation: fadeInUp 1s forwards;
+}
+
+@keyframes fadeInUp {
+  0% {
+    transform: translateY(5px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes bloopAway {
+  0% {
+    transform: scale(100%);
+  }
+  10% {
+    transform: scale(110%);
+  }
+
+  50% {
+    transform: scale(0%);
+  }
+  100% {
+    transform: scale(0%);
+  }
+}
+
+@keyframes bloopAway1 {
+  0% {
+    transform: scale(100%);
+  }
+  10% {
+    transform: scale(110%);
+  }
+
+  50% {
+    transform: scale(0%);
+  }
+  100% {
+    transform: scale(0%);
+  }
+}
+
+#modal__left.mobileStartBtn {
+  display: none;
+  font-family: "Arial", segoe;
+  position: sticky;
+  bottom: 3%;
+  left: 3%;
+  margin-right: auto;
+  color: white;
+  font-size: 1rem;
+  /* background-image: url('/images/crocodile-4.svg'); */
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  backdrop-filter: blur(5px);
+  background-color: RGBA(0, 255, 0, 1);
+  outline: 2px solid RGBA(0, 200, 0, 1);
+  padding: 8px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#mobileText {
+  height: 0;
+  width: 0;
+  opacity: 0;
+}
+
+#textArr span.word:last-child {
+  display: none;
+}
+
+@media screen and (max-width: 1083px) {
+  .ui,
+  .ui > * {
+    font-size: 0.8rem;
+  }
+  #modal__left.mobileStartBtn {
+    display: flex;
+    animation: bloopAway 0.5s reverse;
+  }
+  #modal__left.mobileStartBtn.triggered {
+    display: flex;
+    animation: bloopAway1 0.5s forwards;
+  }
+}
+
+@media screen and (max-width: 374px) {
+  .ui,
+  .ui > * {
+    font-size: 0.7rem;
+  }
 }

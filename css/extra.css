@@ -1,7 +1,9 @@
-
-
 .period {
+  font-family: "Arial", segoe;
   color: white;
+  justify-content: center;
+  align-items: center;
+  margin-top: -1px;
   background: rgb(0, 92, 255);
   background: -moz-linear-gradient(
     0deg,
