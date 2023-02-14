@@ -20,4 +20,6 @@ Planned Features
 * Various UI options (color sliders, background toggles, new fx, etc)
 * Keypress sounds
 * Keypress sounds (but in stereo)
+* Particle sounds
+* Quick reset
 * And more!

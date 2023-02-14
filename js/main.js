@@ -1,6 +1,5 @@
 //Started foundational rework
 
-import('./cursor.js');
 // (function(){
 
 const textCtn = dqs("#textArr-ctn");
@@ -85,7 +84,7 @@ const newWords = (wordsArr, numberNewWords = 15) => {
 
 let testBegin;
 
-newWords(randomWords, 40)
+newWords(randomWords, 26)
 
 let cursor = document.createElement('span');
 cursor.classList = "cursor";
@@ -118,19 +117,12 @@ const validateLetter = (key, letter = cursorPos) => {
     wordPos = lastWord;
     wordPos.classList.add('word-pos');
     wordPos = lastWord;
-    // checkKillRow();
-
-    // getCursorParent().parentNode.appendChild(floatingError)
-    // errWrite(key);
     //Move cursor into floatingError
     floatingError.appendChild(cursor);
 
     //Add floating error to current "space" character
     getCursorParent().appendChild(floatingError);
     //Checks for incorrect letter for space key
-    // window.alert(`NOOOO, ${key} is NOT '${cursorPos.innerText[0]}'`)
-    // letter.classList.remove('yes');
-    // letter.classList.add('no');
   }
   else if (key == cursorPos.innerText[0] || key == " " && cursorPos.innerText[0] == "_") {
     //Checks for correct letter
@@ -170,32 +162,6 @@ score.animate = (TargetClassDOM) => {
   // anim.style.animationPlayState = 'initial';
 }
 
-const helperFunction = {};
-helperFunction.update = (element) => {
-  if (!typeof (element) == 'object') {
-    return
-  }
-  dqs('#help').value = element.outerHTML;
-}
-helperFunction.clipboard = (input) => {
-  input.select();
-  document.execCommand("copy");
-}
-helperFunction.updateScope = (target) => {
-  let rect = target.getBoundingClientRect();
-  const sniperScope = dqs('#sniperScope');
-  sniperScope.style.width = `${rect.width}px`;
-  sniperScope.style.height = `${rect.height}px`;
-  sniperScope.style.top = `${rect.top - 50}px`;
-  sniperScope.style.left = `${rect.left - 8}px`;
-  sniperScope.style.bottom = `${rect.bottom}px`;
-
-}
-
-// dqs('#help').addEventListener("click", (e)=>{
-//   helperFunction.update(e.target.outerHTML);
-//   helperFunction.updateScope(e.target.getBoundingClientRect());
-// })
 
 const updateCombo = (comboSelector, incdec = 1, val = 1) => {
   //Init the DOM object to update
@@ -218,13 +184,13 @@ const wordCheck = (word) => {
   }
 
   word.classList.toggle('cleared');
+  totalWordCount += 1;
   if (check == 1) {
     word.classList.toggle('yes')
     party(word, undefined, partyImages, animMode);
     totalKeyCount += word.children.length;
     score.up(1, 'word');
     //increment total correct words
-    totalWordCount += 1;
     score['word'].style.animation = null;
     score.animate('word')
   } else {
@@ -232,6 +198,13 @@ const wordCheck = (word) => {
     score.reset('word')
   }
   updateWPM();
+  if (totalWordCount >= 25) {
+    testBegin = 0
+    activeKey = -1
+    clearInterval(testCont);
+    mainModal.innerText =  `${(dqs(".wordcount span").innerText == "25") ? "MAX COMBO!!" : "Great!"} You\'ve TYPED IT OUT! Your result is... ${dqs('.wpm .val').innerText} WPM! 🎉`
+    mainModal.classList.add('triggered');
+  }
 }
 
 const cursorMove = (key) => {
@@ -271,7 +244,6 @@ const cursorMove = (key) => {
     }
 
     getCursorParent().classList.remove('cursor-pos');
-    // console.log(nextLetter)
     if (nextLetter != null) {
       nextLetter.classList.toggle('cursor-pos');
     }
@@ -323,7 +295,6 @@ const cursorMove = (key) => {
   }
 
   const ctrlBackspace = () => {
-    // console.log(getCursorParent());
     //Remove cursor position
     cursorPos.classList.remove('cursor-pos');
     errMode = 0;
@@ -395,13 +366,27 @@ let controlState = 0;
 
 let totalWordCount = 0;
 let totalKeyCount = 0;
+let activeKey = 0;
 
-const updateWPM = () => {
+const updateWPM = (trigger = "auto") => {
   //Get current time in seconds
-  let currentTime = new Date().getTime() / 1000;
+  let currentTime = new Date().getTime() / 1000
 
   //Subtract init time from currentTime(already in seconds) to get elapsed seconds
-  let seconds = currentTime - testBegin;
+  let seconds = currentTime - testBegin
+
+  //If updateWPM is updated automatically, give the user 8 seconds to hit a key before it terminates
+  if (trigger == "auto") {
+    activeKey++;
+  } else {
+    activeKey = 0;
+  }
+  if (activeKey >= 8) {
+    testBegin = 0
+    activeKey = -1
+    clearInterval(testCont);
+    window.alert('Test Terminated! Please refresh to try again!')
+  }
 
   //divide total key count by 5 key/word and then by 1 minute * current seconds. This makes it so it measures WPM as using all 5 letter words.
   //Will need to make it so hovering will show total correct keys per minute, as well as raw "word" per minute.
@@ -412,13 +397,14 @@ const updateWPM = () => {
 
 //Event listener for handling cursor movement
 typing = 1;
+testCont = 0;
 window.addEventListener('keydown', (e) => {
-  if (!typing) {
+  if (!typing || activeKey == -1) {
     return
   }
-  if (!testBegin) {
+  if (!testBegin && testBegin != -1) {
     testBegin = new Date().getTime() / 1000;
-    setInterval(updateWPM, 1000);
+    testCont = setInterval(updateWPM, 1000);
   }
 
   if (e.key == ' ') {
@@ -428,6 +414,11 @@ window.addEventListener('keydown', (e) => {
   if (e.key == 'Control' && controlState != 1) {
     controlState = 1;
   };
+
+  //Reset activeKey time
+  activeKey = 0;
+
+  //Writing functions depending on whether in error mode or not
   if (!errMode) {
     cursorMove(e.key);
   } else {
@@ -514,7 +505,6 @@ const imgSetJef = ['PixelJef.png']
 let partyImages = imgSet1;
 
 const party = (element, target = document.querySelector('html'), particleImgs = [], type = 'burst') => {
-  console.log("IT'S PARTY TIME.")
   //Get screen position for element
   let elPos;
   if (!element.target) {
@@ -523,13 +513,13 @@ const party = (element, target = document.querySelector('html'), particleImgs = 
     elPos = element.target.getBoundingClientRect();
   }
 
+
   //Create absolutely positioned element; add into  place at center of the element
   const blockParty = document.createElement('span');
   blockParty.classList.add('block__party')
   blockParty.style.top = (elPos.top + "px")
+  // blockParty.style.top = (elPos.y / window.outerHeight * 100 * 2 + "%")
   blockParty.style.left = (elPos.left + "px")
-  // blockParty.style.right = (elPos.right + "px")
-  // blockParty.style.bottom = (elPos.bottom + "px")
   blockParty.style.height = (elPos.height + "px")
   blockParty.style.width = (elPos.width + "px")
   target.appendChild(blockParty);
@@ -645,30 +635,8 @@ header.addEventListener('mouseover', (e) => {
 });
 
 
-
-//UI CONTROLLERS
-
-const UItarget = dqs('#UItarget');
-const HueSlider = dqs('#hue');
-const SatSlider = dqs('#saturation');
-const BriSlider = dqs('#brightness');
-
-dqs('#styling').addEventListener('click', el => {
-  const data = el.target.dataset;
-  if (data.hasOwnProperty('el')) {
-    dqs(".UI__.els .selected").classList = "";
-    el.target.classList.add('selected')
-    dqs("#UItarget").value = data.el;
-  }
+window.addEventListener('mouseenter', () => {
 })
 
-dqs('#styling .props').addEventListener('input', el => {
-  const slider = el.target;
-  const data = slider.dataset;
-  const value = slider.id;
-
-
-  dqs(':root').style.setProperty(`--${UItarget.value}Filter`, `hue-rotate(${HueSlider.value}deg) saturate(${SatSlider.value}%) brightness(${BriSlider.value / 100})`)
-
-
-})
+const cheekyConsoleMessageStyle = 'font-size: 3rem'
+console.warn("%c🤨", cheekyConsoleMessageStyle);
