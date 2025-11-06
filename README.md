@@ -1,6 +1,7 @@
 # Type-It-Out
 
 A typing test-inspired project with particle effects made from scratch!
+Try it out here: https://github.com/bhdao/the-great-randomizer
 
 Features
 * Words Per Minute (based on every 5 successful keypresses
